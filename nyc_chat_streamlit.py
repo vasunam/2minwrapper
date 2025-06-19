@@ -119,11 +119,11 @@ def run_quiz() -> None:
             if st.button("Chat with NYC Bot", key="back_to_chat"):
                 st.session_state.mode = "Chat Mode"
                 reset_quiz_state()
-                st.experimental_rerun()
+                st.rerun()
         with col2:
             if st.button("Retake Quiz", key="retake_quiz"):
                 reset_quiz_state()
-                st.experimental_rerun()
+                st.rerun()
         return
 
     # Show current question
@@ -139,7 +139,7 @@ def run_quiz() -> None:
     with cols[0]:
         if st.button("Previous", key="prev_q") and q_idx > 0:
             st.session_state.quiz_index -= 1
-            st.experimental_rerun()
+            st.rerun()
     with cols[1]:
         if st.button("Next", key="next_q"):
             if choice:
@@ -151,7 +151,7 @@ def run_quiz() -> None:
 
                 if q_idx + 1 < len(QUESTIONS):
                     st.session_state.quiz_index += 1
-                    st.experimental_rerun()
+                    st.rerun()
                 else:
                     # Compute result
                     scores = {b: 0 for b in BOROUGH_DESCRIPTIONS}
@@ -159,7 +159,7 @@ def run_quiz() -> None:
                         borough = next(b for text, b in QUESTIONS[qi]["options"] if text == answer_text)
                         scores[borough] += 1
                     st.session_state.quiz_result = max(scores, key=scores.get)
-                    st.experimental_rerun()
+                    st.rerun()
 
 # -----------------------------------------------------------------------------
 # Chat logic
@@ -228,7 +228,7 @@ def main() -> None:
             st.session_state.messages = [
                 {"role": "system", "content": get_persona_prompt()},
             ]
-            st.experimental_rerun()
+            st.rerun()
         st.markdown("—")
         st.markdown("Made with ❤️ in NYC & Streamlit")
 
@@ -288,7 +288,7 @@ def main() -> None:
             and st.button("Reset conversation")
         ):
             st.session_state.messages = [{"role": "system", "content": get_persona_prompt()}]
-            st.experimental_rerun()
+            st.rerun()
         st.markdown("—")
         st.markdown("Made with ❤️ in NYC & Streamlit")
 
